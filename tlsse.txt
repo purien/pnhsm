@@ -10,8 +10,8 @@ sse	                    TLSPSK server test echo with test tlsse card (github ver
 -h [hostname}	          Server Name
 -p [port}	              Server Port
 -l [ciphersuite}	      Server CipherSuite
-                        TLS_AES_128_GCM_SHA256
-                        TLS_AES_128_CCM_SHA256
+                      TLS_AES_128_GCM_SHA256
+                      TLS_AES_128_CCM_SHA256
 
 -H Extended Option  name[parameter]
 
@@ -34,7 +34,7 @@ sse	                    TLSPSK server test echo with test tlsse card (github ver
 -H auth[PUBLICKEY]	    Authenticate with CA public key
 -H sign [PRIVKEY]	      Sign with CA private key
 -H hw[number]	          Use TLS Identity module
-                        0=pcsc, 1=serial, 2=lemonolith, 101=MFA, 144=cryptoterminal
+                      0=pcsc, 1=serial, 2=lemonolith, 101=MFA, 144=cryptoterminal
 -H im	                  Use TLS identity module pcsc
 -H ct	                  Use CryptoTerminal, with hw=1
 -H tc	                  Use MFA, with hw=1
@@ -52,8 +52,8 @@ sse	                    TLSPSK server test echo with test tlsse card (github ver
 -H rh[hostname]	        remote server name
 -H rp[port}	            remote server TCP port
 -H rl[CPIHERSUITE]	    Remote server CipherSuite
-                        TLS_AES_128_GCM_SHA256 - aesccm
-                        TLS_AES_128_CCM_SHA256 - aesgcm
+                      TLS_AES_128_GCM_SHA256 - aesccm
+                      TLS_AES_128_CCM_SHA256 - aesgcm
 -H rS[ServerName]      	remote server name
 -H rpsk[PSKVALUE]	      remote server PSK
 -H ridentity[IDVALUE]	  remote server identity
@@ -78,5 +78,6 @@ Enc: use hmac256 as key generator.
 enc: use BIP32 as key generator   
 Dec: hmac256 as key generator
 dec: BIP32 as key generator
+
 
 
