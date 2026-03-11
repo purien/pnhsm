@@ -1,0 +1,9 @@
+##!/bin/sh
+#
+IP=127.0.0.1
+PORT=8888
+SEN=key7.com
+IDENTITY=Client_identity
+PSK=0102030405060708090A0B0C0D0E0F101112131415161718191A1B1C1D1E1F20
+#
+./tlsse -c -H noim -H console -h $IP -p $PORT  -S $SEN -H psk$PSK 
