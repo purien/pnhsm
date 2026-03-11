@@ -1,7 +1,7 @@
 # pnhsm
 TLSSE Client for Personal Network HSM
 
-option	                comment
+option	             comment
 
 -c, c	               Start TLSPSK client
 client	              Start TLSPSK client, default options
