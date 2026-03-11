@@ -1,7 +1,7 @@
 tlsse218.cap
 
 Command	                Comment	                                                    guest
-?00	Version	Y
+?00	              Version	Y
 ?01[text]	        Echo text 	                                                Y
 ?02	                Disconnect	                                                Y
 ?05[text]	        Set root  psk-identity	                                        N
@@ -47,4 +47,5 @@ Zxy[hexa digits]	Write value (up to 32 bytes) in record number xy hexadecimal	N
 Ixy	                Read record number xy hexadecimal	                        Y
 
 * h,H,A,a commands have special operation mode (som) see next section
+
 
