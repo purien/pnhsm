@@ -238,7 +238,8 @@ int fdecrypt(char *akey, char *name)
     for (i = 0; i < 16; i++) key[i]    = akey[i+12];
 
     err= aesgcm_init(&mycipher,key) ;
-    err= aesgcm_decrypt(&mycipher,out,in,size-TAGSIZE,nonce,12,tag,TAGSIZE,auth,authsz);
+    //err= aesgcm_decrypt(&mycipher,out,in,size-TAGSIZE,nonce,12,tag,TAGSIZE,auth,authsz);
+    err= aesgcm_decrypt(&mycipher,in,out,size-TAGSIZE,nonce,12,tag,TAGSIZE,auth,authsz);
     aesgcm_free(&mycipher);
 
 	free(in);free(auth);
