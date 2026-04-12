@@ -1,7 +1,8 @@
-/* 
- * Copyright (C) 2026 Pascal Urien (pascal.urien@gmail.com)
+/* Copyright (C) 2026 Pascal Urien (pascal.urien@gmail.com)
  * All rights reserved.
  */
+
+
 #ifdef WIN32
 #define _CRT_SECURE_NO_WARNINGS
 #define _CRT_SECURE_NO_DEPRECATE
@@ -59,8 +60,11 @@ char *cipher="aesccm";
 char *sniHostName="key1.com";
 char impin[32]= "0000";
 char imaid[64]= "010203040500";
-char MYPSK[129  ];
+char MYPSK[129]  ;
 char MYPSKID[129];
+
+char MYPSKID2[129];
+
 
 int tcrypto=0;
 int ttlsim=0;
@@ -402,13 +406,13 @@ static int mygetopt(int argc, char** argv, const char* optstring)
 			   
 			   else if (XSTRNCMP(myoptarg, "identity", 8) == 0) 
 					 {  strcpy(MYPSKID,myoptarg+8);
-			            ctx->identity=MYPSKID;
+			            ctx->identity=myoptarg+8;//MYPSKID;
  		             }
           
 
 			   else if (XSTRNCMP(myoptarg, "ridentity", 9) == 0) 
-					 {  strcpy(MYPSKID,myoptarg+9);
-			            ctx->netctx->identity=MYPSKID;
+					 {  strcpy(MYPSKID2,myoptarg+9)   ;
+			            ctx->netctx->identity=myoptarg+9;//MYPSKID2;
  		             }
  
 

@@ -1,7 +1,7 @@
-/* 
- * Copyright (C) 2026 Pascal Urien (pascal.urien@gmail.com)
+/* Copyright (C) 2026 Pascal Urien (pascal.urien@gmail.com)
  * All rights reserved.
  */
+
 
 #ifdef WIN32
 #define _CRT_SECURE_NO_WARNINGS
@@ -2657,7 +2657,9 @@ int tls13(int argc, char** argv)
      if ( (strcmp(argv[1],"-c") == 0) || (strcmp(argv[1],"c") == 0))
 	 {   tctx.netctx= &tctx2;
 		 err= parse(argc,argv,&tctx);
-		 if (err < 0) return 0;
+         init_imv(tctx.psk,0,&tctx.imctx)  ;
+	     init_imv(tctx2.psk,0,&tctx2.imctx);
+  		 if (err < 0) return 0;
 	 }
 
   if (tcrypto)
