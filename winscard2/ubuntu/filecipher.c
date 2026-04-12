@@ -200,12 +200,16 @@ int fdecrypt(char *akey, char *name)
 
 #ifdef WIN32
     err=fscanf_s(f,"%s",meta,(int)sizeof(meta)-1);
-#else
-    err=scanf(f,"%s",meta);
-#endif
-
     if (err==0) 
 	{ fclose(f); return -1;}
+#else
+    err=fscanf(f,"%s",meta);
+    if (err !=1 ) 
+	{ fclose(f); return -1;}
+#endif
+
+    //if (err==0) 
+	//{ fclose(f); return -1;}
     
 	fseek(f, 0, SEEK_SET);  
 
@@ -242,7 +246,8 @@ int fdecrypt(char *akey, char *name)
 
 	free(in);free(auth);
 
-	if (err != 0)
+	//if (err != 0)
+    if (err < 0)
 	{   printf("Decryption error for file %s !!!\n",name);
 		free(out);
 		return -1;

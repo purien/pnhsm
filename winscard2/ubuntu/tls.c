@@ -2,6 +2,7 @@
  * All rights reserved.
  */
 
+
 #ifdef WIN32
 #define _CRT_SECURE_NO_WARNINGS
 #define _CRT_SECURE_NO_DEPRECATE
@@ -2656,6 +2657,8 @@ char * iniseid(int n)
   static char name[2048];
 	default_ctx(&ttctx[n],&ttctx2[n],trx[n],2047,trx2[n],2047);
     err= parse(largc[n],largv[n],&ttctx[n]);
+    init_imv(ttctx[n].psk,0,&ttctx[n].imctx)  ;
+	init_imv(ttctx2[n].psk,0,&ttctx2[n].imctx);
 	sprintf(name,"%s:%d/%s",ttctx[n].name,ttctx[n].port,ttctx[n].sn);
 	return name;
 }
@@ -2688,6 +2691,8 @@ int tls13(int argc, char** argv)
      if ( (strcmp(argv[1],"-c") == 0) || (strcmp(argv[1],"c") == 0))
 	 {   tctx.netctx= &tctx2;
 		 err= parse(argc,argv,&tctx);
+         init_imv(tctx.psk,0,&tctx.imctx)  ;
+	     init_imv(tctx2.psk,0,&tctx2.imctx);
 		 if (err <0) return 0;
 	 }
 	 else
