@@ -4,7 +4,7 @@ INCLUDE="-I/usr/include/PCSC -I./include -I."
 # !!! in pcscemulator137.h  uncomment  #define NOFAKE ...FOR PCSC USE
 #
 rm *.o
-rm racs2
+rm racs8
 #
 gcc -c -O2 -Wall $INCLUDE ./main.c         -o  ./main.o 
 gcc -c -O2 -Wall $INCLUDE ./reentrant2.c   -o ./reentrant2.o 
