@@ -1,5 +1,5 @@
 #!/bin/bash
 cd /home/pascal/Documents/release/keystore2
-./racs77 ./config/
+./racs8m ./config/
 #
 
