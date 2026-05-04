@@ -1,19 +1,14 @@
 #!/bin/bash
-wget https://www.openssl.org/source/openssl-1.0.2u.tar.gz
-tar xzvf openssl-1.0.2u.tar.gz
-cd openssl-1.0.2u
+v=3.0.20
+wget https://www.openssl.org/source/openssl-$v.tar.gz
+tar xzvf openssl-$v.tar.gz
+cd openssl-$v
 ./config
 make
-rm ./../../src_release7/include/openssl/*.*
-cp -L ./include/openssl/* ./../../src_release7/include/openssl
-cp ./libssl.a           ./../../src_release7/libmssl.a
-cp ./libcrypto.a  ./../../src_release7/libmcrypto.a
+rm                         ./../../src_release8/include/openssl/*.*
+cp -L ./include/openssl/*  ./../../src_release8/include/openssl
+cp ./libssl.a              ./../../src_release8/libmssl.a
+cp ./libcrypto.a           ./../../src_release8/libmcrypto.a
 cd ..
-rm -r  openssl-1.0.2u
-rm openssl-1.0.2u.tar.gz
-
-
-
-
-
-
+# rm -r  openssl-$v
+# rm openssl-$v.tar.gz
