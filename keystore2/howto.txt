@@ -40,7 +40,7 @@ trace_dir    /home/pascal/Documents/release/keystore2/trace/
 4.1.2 modify remote server address
 grid_server     192.168.1.51
 4.2 edit start.sh
-4.2.1 modify path for key77 
+4.2.1 modify path for key8m
 cd /home/pascal/Documents/release/keystore2
 4.3 install service keystore2 if neeeded
 ./create.sh
@@ -52,6 +52,6 @@ cmd -c  -h 192.168.1.48  -p 444  -S key3.com  -l aesgcm  -H noim -H psk010203040
 5- Start server
 goto ./keytore2 directory
 5.1 Server with no PCSC emulation
-./racs7 ./config/
+./racs8 ./config/
 5.2 Server with PCSC emulation
-./racs77 ./config/
+./racs8m ./config/
