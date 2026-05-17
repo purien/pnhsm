@@ -1,8 +1,3 @@
-/* 
- * Copyright (C) 2026 Pascal Urien (pascal.urien@gmail.com)
- * All rights reserved.
- */
-
 #ifdef WIN32
 #define _CRT_SECURE_NO_WARNINGS
 #define _CRT_SECURE_NO_DEPRECATE
@@ -114,7 +109,7 @@ int ecc_verify(char *sig, int siglen, char*data, int datalen, char *mypub,int cu
     ec_group= EC_GROUP_new_by_curve_name(NID_secp256k1);
 
     signature = ECDSA_SIG_new();
-    signature = d2i_ECDSA_SIG(&signature,&sig,siglen);
+    signature = d2i_ECDSA_SIG(&signature,(const unsigned char **)&sig,siglen);
 
     pub = EC_POINT_new(ec_group);
 

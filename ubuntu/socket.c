@@ -1,8 +1,3 @@
-/* 
- * Copyright (C) 2026 Pascal Urien (pascal.urien@gmail.com)
- * All rights reserved.
- */
-
 #ifdef WIN32
 #define _CRT_SECURE_NO_WARNINGS
 #define _CRT_SECURE_NO_DEPRECATE
@@ -24,6 +19,7 @@
    #include <netinet/in.h>
    #include <arpa/inet.h>
    #include <netdb.h>
+   #include <unistd.h>  
    #define INVALID_SOCKET -1
    #define SOCKET int
 #else
@@ -367,7 +363,7 @@ int DeconnectServer(int client)
 
 }
   
-int __netrecv(char *buf,int s, int max, int atimeout)
+int netrecv2(char *buf,int s, int max, int atimeout)
 { int err,len,pt=0,fdata=0,more=1,state=0,remain=5;
   char ptcol,vhigh,vlow;
   struct timeval timeout;
@@ -429,106 +425,6 @@ int __netrecv(char *buf,int s, int max, int atimeout)
  return 5+len;
 
 }
-
-
-int ___netrecv(char *buf,int s, int max, int atimeout)
-{ int err,len,pt=0,fdata=0,more=1,state=0,remain=5;
-  char ptcol,vhigh,vlow;
-  struct timeval timeout;
-  fd_set a_fd_set;
-
-  #ifndef WIN32
-  struct pollfd fds[1];
-  #endif
-  
-  if (atimeout == 0) atimeout=5;
-
-  timeout.tv_sec  = atimeout  ; // seconds
-  timeout.tv_usec = 0  ;
-
-
-  while(more)
-  { fdata=0;
-
-     FD_ZERO(&a_fd_set)    ;
-     FD_SET(s,&a_fd_set)   ;
-
-     err = select (1+s,&a_fd_set,NULL,NULL,&timeout);
-     if (err < 0) ; //return -1;
-     if (FD_ISSET(s, &a_fd_set)) fdata=1; //data received
-     else ; //timeout
-
-	 #ifndef WIN32
-	 memset(fds, 0 , sizeof(fds));
-     fds[0].fd = s ;
-	 fds[0].events = POLLIN;
- 	 #else
-	 FD_ZERO(&a_fd_set)    ;
-     FD_SET(s,&a_fd_set)   ;
-	 #endif
-
-
-     #ifndef WIN32
-	 err = poll(fds,1, 1000*(int)timeout.tv_sec);
-	 if (err< 0)  ;  //return -1;
-	 if (err == 0);  // timeout
-	 else if(fds[0].revents != POLLIN) ; //return -1;
-	 else  if (fds[0].fd == s) fdata=1 ; //data received
-	 else ;// return -1;
-	 #else
-     err = select (1+s,&a_fd_set,NULL,NULL,&timeout);
-     if (err < 0) ; //return -1;
-     if (FD_ISSET(s, &a_fd_set)) fdata=1; //data received
-     else ; //timeout
-     #endif
-
-	 
-
-	 if (fdata == 0) //timeout or error
-	 {  
-     #ifdef WIN32
-	 FD_ZERO(&a_fd_set) ;
-     #endif
-	 DeconnectServer(s); 
-	 return -1 ;
-     }
-
-     err = recv(s,buf+pt,remain,0);
-     if (err <= 0) { DeconnectServer(s); return -1 ; }
-
-	 if (state ==0)
-	 {  pt+= err    ;
-	    remain-= err;
-	    if (remain ==0)
-		{
-		ptcol= buf[0];
-        vhigh= buf[1];
-        vlow=  buf[2];
-        len  =  (buf[3]<<8) & 0xFF00;
-        len |=   buf[4] & 0xFF;
-		state=1;
-		remain=len;
-		}
-	  }
-	 
-	 else
-	 { pt+= err    ;
-	   remain-= err;
-	   if (remain == 0)
-       break;
-	 }
-
-  }
-
-  #ifdef WIN32
-  FD_ZERO(&a_fd_set) ;
-  #endif
-
- return 5+len;
-
-}
-
-
 
 int netrecv(char *buf,int s, int max, int atimeout)
 { int err,len,pt=0,fdata=0,more=1,state=0,remain=5;
