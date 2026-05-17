@@ -1,7 +1,3 @@
-/* Copyright (C) 2026 Pascal Urien (pascal.urien@gmail.com)
- * All rights reserved.
- */
-
 #define _CRT_SECURE_NO_WARNINGS
 #define _CRT_SECURE_NO_DEPRECATE
 
@@ -28,7 +24,7 @@ int RESETWAITTIME=1000;
 // #define SERIALPORTDEBUG 
 
 static int SerialTxError=0,SerialRxError=0;
-static display_at=1;
+static int display_at=1;
 
 //https://stackoverflow.com/questions/25996171/linux-blocking-vs-non-blocking-serial-read
 //https://stackoverflow.com/questions/57152937/canonical-mode-linux-serial-port/57155531#57155531

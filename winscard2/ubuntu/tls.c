@@ -1,8 +1,3 @@
-/* Copyright (C) 2026 Pascal Urien (pascal.urien@gmail.com)
- * All rights reserved.
- */
-
-
 #ifdef WIN32
 #define _CRT_SECURE_NO_WARNINGS
 #define _CRT_SECURE_NO_DEPRECATE
@@ -25,6 +20,10 @@
 
 #include "hmac.h"
 #include "util.h"
+
+#ifndef WIN32
+extern int testccm();
+#endif
 
 int AESct=0;
 

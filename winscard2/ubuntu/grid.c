@@ -1,7 +1,3 @@
-/* Copyright (C) 2026 Pascal Urien (pascal.urien@gmail.com)
- * All rights reserved.
- */
-
 #define _CRT_SECURE_NO_DEPRECATE 
 #define _CRT_SECURE_NO_DEPRECATE
 
@@ -9,6 +5,7 @@
  #include <windows.h>
 #else
 #include <wintypes.h>
+#include <wchar.h>
 #endif
 
 #include <stdlib.h>

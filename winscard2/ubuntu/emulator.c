@@ -1,7 +1,3 @@
-/* Copyright (C) 2026 Pascal Urien (pascal.urien@gmail.com)
- * All rights reserved.
- */
-
 #define _CRT_SECURE_NO_WARNINGS
 #define _CRT_SECURE_NO_DEPRECATE
 
@@ -319,7 +315,7 @@ int testapi()
   return(-1); 
   */
 
-  stat= SCardListReaders((IN SCARDCONTEXT)NULL,(IN LPCWSTR)NULL,NULL,&dwReaders);
+  stat= SCardListReaders((IN SCARDCONTEXT)NULL,NULL,NULL,&dwReaders);
   if (stat  != SCARD_S_SUCCESS)
   return(-1); 
 
@@ -544,7 +540,7 @@ LPWSTR mszReaders2=NULL;
 if (fdebug)
 Printf("SCardListReadersW\n");
 
-if (mszReaders == NULL) mszReaders2=Reader_String_w;
+if (mszReaders == NULL) mszReaders2=(LPWSTR)Reader_String_w;
 else                    mszReaders2=mszReaders;
 
 if (nbseid == 0)

@@ -1,7 +1,3 @@
-/* Copyright (C) 2026 Pascal Urien (pascal.urien@gmail.com)
- * All rights reserved.
- */
-
 #ifdef WIN32
 #define _CRT_SECURE_NO_WARNINGS
 #define _CRT_SECURE_NO_DEPRECATE
@@ -50,7 +46,7 @@ extern char fxname[MAXFILE][1024];
 extern int  fxnb;
 extern int  ptfx;
 extern int  fenc[MAXFILE];
-int  fdec[MAXFILE];
+extern int  fdec[MAXFILE];
 extern int  fench[MAXFILE];
 extern int  fdech[MAXFILE];
 

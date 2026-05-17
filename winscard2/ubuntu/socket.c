@@ -1,7 +1,3 @@
-/* Copyright (C) 2026 Pascal Urien (pascal.urien@gmail.com)
- * All rights reserved.
- */
-
 #ifdef WIN32
 #define _CRT_SECURE_NO_WARNINGS
 #define _CRT_SECURE_NO_DEPRECATE
@@ -23,6 +19,7 @@
    #include <netinet/in.h>
    #include <arpa/inet.h>
    #include <netdb.h>
+   #include <unistd.h>
    #define INVALID_SOCKET -1
    #define SOCKET int
 #else
