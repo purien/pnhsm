@@ -367,7 +367,8 @@ int TLS_recvbuf(T_CTX * ctx, int fbin)
   if (fbin==0)
   rx[5+err-1]=0 ;
   else
-  { err = err-1 // added 30/07/2026
+  { rx[5+err-1]=0 ; //added 08/08/2026
+	err = err-1; // added 30/07/2026
 	if (err <2) return -1;
     else if (err==2) return err;
 	for(i=0;i<(err-2);i++)
