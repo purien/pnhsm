@@ -75,7 +75,7 @@ typedef struct { char fek[32];
 extern int ComputePRK(char *salt, int lensalt, char *ikm, int lenikm,char *prk);
 extern int DeriveSecret(char *prk, int len, char * label, char *data, int lendata, char *secret);
 
-#define MAXTLSBUFSIZE 2048
+#define MAXTLSBUFSIZE 4096 //2048
 typedef struct T_CTX { 
 	             CH_CTX ctx0 ;
                  CH_CTX ctx1 ;

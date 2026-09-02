@@ -1,7 +1,3 @@
-/* Copyright (C) 2026 Pascal Urien (pascal.urien@gmail.com)
- * All rights reserved.
- */
-
 #ifdef WIN32
 #define _CRT_SECURE_NO_WARNINGS
 #define _CRT_SECURE_NO_DEPRECATE
@@ -23,6 +19,7 @@
    #include <netinet/in.h>
    #include <arpa/inet.h>
    #include <netdb.h>
+   #include <unistd.h>  
    #define INVALID_SOCKET -1
    #define SOCKET int
 #else
@@ -72,18 +69,20 @@ int NetRecv(char *buf,int max,int atimeout)
 
      #ifndef WIN32
 	 err = poll(fds,1, 1000*(int)timeout.tv_sec);
-	 if (err< 0)  ;  //return -1;
-	 if (err == 0);  // timeout
-	 else if(fds[0].revents != POLLIN) ; //return -1;
-	 else  if (fds[0].fd == s) fdata=1 ; //data received
+	 // if (err<0)  ;  //return -1;
+	 if (err <= 0);  // socket error or timeout
+	 else  if (fds[0].revents != POLLIN) ; //return -1;
+	 else  if (fds[0].fd == s) fdata=1   ; //data received
 	 else ;// return -1;
 	 #else
      FD_ZERO(&a_fd_set)    ;
      FD_SET(s,&a_fd_set)   ;
      err = select (1+s,&a_fd_set,NULL,NULL,&timeout);
      if (err < 0) ; //return -1;
-     if (FD_ISSET(s, &a_fd_set)) fdata=1; //data received
-     else ; //timeout
+	 else
+	 { if (FD_ISSET(s, &a_fd_set)) fdata=1; //data received
+       else ; //timeout
+	 }
      #endif
 
 	 
@@ -112,6 +111,7 @@ int NetRecv(char *buf,int max,int atimeout)
         len |=   buf[4] & 0xFF;
 		state=1;
 		remain=len;
+        if (len <= 0) { DeconnectServer(s); return -1 ; }
 		}
 	  }
 	 
@@ -255,18 +255,15 @@ int server_wait()
 
 }
 
-static int tcpct=0;
 int startTCPIP()
 {
 #ifdef WIN32
  int err; 
  WSADATA wsaData;
- WORD wVersionRequested = MAKEWORD(1,1) ;
- if (tcpct ==0)
- { err = WSAStartup(wVersionRequested,&wsaData );
-   if ( err != 0 ) return(-1);
- }
- tcpct++;
+ WORD wVersionRequested = MAKEWORD(2,2) ; // 1,1
+ 
+ err = WSAStartup(wVersionRequested,&wsaData );
+ if ( err != 0 ) return(-1);
  #endif
 
  
@@ -277,11 +274,7 @@ int startTCPIP()
 int stopTCPIP()
 {
 #ifdef WIN32
- tcpct--;
- if (tcpct <=0)
- { WSACleanup(); 
-   tcpct =0;
- }
+ WSACleanup(); 
 #endif
  return 0;
 
@@ -453,7 +446,6 @@ int netrecv(char *buf,int s, int max, int atimeout)
   timeout.tv_sec  = atimeout  ; // seconds
   timeout.tv_usec = 0  ;
 
-
   while(more)
   { fdata=0;
 
@@ -469,8 +461,8 @@ int netrecv(char *buf,int s, int max, int atimeout)
 
      #ifndef WIN32
 	 err = poll(fds,1, 1000*(int)timeout.tv_sec);
-	 if (err< 0)  ;  //return -1;
-	 if (err == 0);  // timeout
+	 //if (err< 0)  ;  //return -1;
+	 if (err <= 0);  // timeout or socket error
 	 else if(fds[0].revents != POLLIN) ; //return -1;
 	 else  if (fds[0].fd == s) fdata=1 ; //data received
 	 else ;// return -1;
@@ -478,9 +470,12 @@ int netrecv(char *buf,int s, int max, int atimeout)
      FD_ZERO(&a_fd_set)    ;
      FD_SET(s,&a_fd_set)   ;
      err = select (1+s,&a_fd_set,NULL,NULL,&timeout);
-     if (err < 0) ; //return -1;
-     if (FD_ISSET(s, &a_fd_set)) fdata=1; //data received
-     else ; //timeout
+     //err = select (0,&a_fd_set,NULL,NULL,&timeout);
+     if (err < 0); // -1= Socket Error, 0= timeout, 1= data
+	 else
+	 { if (FD_ISSET(s, &a_fd_set)) fdata=1; //data received
+       else ; //timeout
+	 }
      #endif
 
 	 
@@ -509,6 +504,7 @@ int netrecv(char *buf,int s, int max, int atimeout)
         len |=   buf[4] & 0xFF;
 		state=1;
 		remain=len;
+		if (len <= 0) { DeconnectServer(s); return -1 ; }
 		}
 	  }
 	 
@@ -528,6 +524,8 @@ int netrecv(char *buf,int s, int max, int atimeout)
  return 5+len;
 
 }
+
+
 
 int netsend(char *buf, int size, int s)
 { int err,offset=0,more=1;
