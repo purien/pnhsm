@@ -1,4 +1,5 @@
-﻿option	                      comment
+﻿tlsse arguments
+option	                      comment
 
 -c, c	                      Start TLSPSK client
 client	                      Start TLSPSK client, default options
@@ -13,14 +14,17 @@ sse	                      TLSPSK server test echo with test tlsse card (github v
                               TLS_AES_128_GCM_SHA256
                               TLS_AES_128_CCM_SHA256
 
--H Extended Option  name[parameter]
+-H Extended Option name[parameter]
 
 -H S[ServerName]	      Server name
 -H psk[PSKVALUE]	      Server PSK Key
 -H identity[IDVALUE]	      Server TLS-PSK Identity
--H #[COMMAND]	              Send a command to server, ! exit
--H *[COMMAND]	              Send a command to server, ! exit
+-H #[COMMAND]	              Send a text command to server, ! exit
+-H ##[COMMAND]	              Send a binary command to server
+-H *[COMMAND]	              Send a text command to server, ! exit
+-H *#[COMMAND]	              Send a binary command to server
 -H @xyx[COMMAND]	      Send a command xyz time to server
+-H @xyx#[COMMAND]	      Send a binary command xyz time to server
 -H ttcrypto	              Crypto tests
 -H tttlsim	              TLSIM tests
 -H console	              Open a console with server
