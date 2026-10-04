@@ -1,6 +1,6 @@
 CONFIG=##!/bin/sh
 #
-IP=pnhsm.dynalias.com 
+IP=127.0.0.1
 PORT=8888
 SEN=key31.com
 IDENTITY=Client_identity
