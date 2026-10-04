@@ -1,6 +1,6 @@
 ##!/bin/sh
 #
-IP=pnhsm.dynalias.com
+IP=127.0.0.1
 PORT=8888
 SEN=key31.com
 guestID=guest
@@ -12,7 +12,7 @@ META=metadata
 FILE=./afile.txt
 FILEB=./afile.txt.bin
 #
-RIP=pnhsm.dynalias.com
+RIP=127.0.0.1
 RPORT=8888
 RSEN=key32.com
 guestID2=guest2
