@@ -1,6 +1,6 @@
 @echo off
 REM
-set IP=pnhsm.dynalias.com
+set IP=127.0.0.1
 set PORT=8888
 set SEN=key31.com
 set guestID=guest
@@ -11,7 +11,7 @@ set KEY=02
 set META=metadata
 set FILE=afile.txt
 REM
-set RIP=pnhsm.dynalias.com
+set RIP=127.0.0.1
 set RPORT=8888
 set RSEN=key32.com
 set guestID2=guest2
