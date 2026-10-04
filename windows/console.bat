@@ -1,5 +1,5 @@
 @echo off
-set IP=pnhsm.dynalias.com
+set IP=127.0.0.1
 set PORT=8888
 set SEN=key7.com
 set IDENTITY=Client_identity
